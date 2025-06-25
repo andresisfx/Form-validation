@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="miFormulario">
+  <div class="form-group">
+    <label>Email:</label>
+    <input type="text" id="email" class="form-control">
+    <span class="error-message" id="email-error"></span>
+  </div>
+  <div class="form-group">
+    <label>Contraseña:</label>
+    <input type="password" id="password" class="form-control">
+    <span class="error-message" id="password-error"></span>
+  </div>
+</form>
+<script>
+                // Seleccionar elementos
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const emailError = document.getElementById('email-error');
+            const passwordError = document.getElementById('password-error');
+
+            // Función para validar email
+            function isValidEmail(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+            }
+
+            // Función para validar contraseña
+            function isValidPassword(password) {
+            return password.length >= 6;
+            }
+
+            // Mostrar u ocultar errores
+            function updateError(element, isValid, errorMessage) {
+            if (!isValid) {
+                element.textContent = errorMessage;
+                element.style.color = 'red';
+            } else {
+                element.textContent = '';
+            }
+            }
+
+            // Validación en tiempo real para el email
+            emailInput.addEventListener('input', () => {
+            const email = emailInput.value.trim();
+            updateError(
+                emailError,
+                isValidEmail(email),
+                'Correo electrónico inválido'
+            );
+            });
+
+            // Validación en tiempo real para la contraseña
+            passwordInput.addEventListener('input', () => {
+            const password = passwordInput.value.trim();
+            updateError(
+                passwordError,
+                isValidPassword(password),
+                'La contraseña debe tener al menos 6 caracteres'
+            );
+            });
+
+            const form = document.getElementById('miFormulario');
+            const submitButton = document.querySelector('button[type="submit"]');
+
+            function checkFormValidity() {
+            const isEmailValid = isValidEmail(emailInput.value.trim());
+            const isPasswordValid = isValidPassword(passwordInput.value.trim());
+            submitButton.disabled = !(isEmailValid && isPasswordValid);
+            }
+
+            // Escuchar cambios en ambos campos
+            emailInput.addEventListener('input', checkFormValidity);
+            passwordInput.addEventListener('input', checkFormValidity);
+</script>
+</body>
+</html>
