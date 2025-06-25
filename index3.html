@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <header>
+        <h1>Contact Us</h1>
+        <p>please fill all fields to send your information succesfully</p>
+     </header>
+     <div class="container">
+        <form action="">
+            <fieldset>
+                <legend style="background-color: rgb(27, 72, 219); color: white; border-radius: 5px; padding: 5px;">Your Data</legend>
+                    <div class="form-control">
+                        <label for="" >Name</label>
+                        <input type="text" name="name" id="name" required minlength="3">
+                        <div class="error" id="name-error"></div>
+                    </div>
+                    <div class="form-control">
+                        <label for="">Email</label>
+                        <input type="email" name="email" id="email" required>
+                        <div class="error" id="email-error"></div>
+                    </div>
+                    <div class="form-control">
+                        <label for="">Password</label>
+                        <input type="password" name="password" id="password" required minlength="">
+                        <div class="error" id="password-error"></div>
+                    </div>
+                <button>Send</button>
+            </fieldset>
+        </form>
+     </div>
+</body>
+</html>

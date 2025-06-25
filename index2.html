@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+
+
+
+</head>
+<body>
+   <header>
+        <h1>Form Validation</h1>
+        <p>Fill the form below to validate the fields</p>
+   </header> 
+     
+    <div class="container">
+        <form class="myForm " action="">
+            <div class="form-control">
+                <label for="">Name</label>
+                <input type="text" name="name" id="name" required minlength="3">
+                <div class="error" id="name-error"> this field must have at least 3 characteres</div>
+            </div>
+            
+            <div class="form-control">
+                <label for="" >email</label>
+                <input type="email" name="email" id="email" required>
+                <div class="error" id="email-error"> Invalid Format email</div>
+
+            </div>
+
+            <div class="form-control">
+                <label for="">Password</label>
+                <input type="text" name="password" id="password" required minlength="6">
+                <div class="error" id="password-error"> this field must have at least 6 characteres</div>
+            </div>
+            <button type="submit">Submit</button>
+
+        </form>
+    </div>
+     <script>
+        document.addEventListener('DOMContentLoaded',function(e){
+            const form = document.querySelector('.myForm');
+            const inputs = document.querySelectorAll('.form-control input');
+            inputs.forEach(input=>{
+                input.addEventListener('input',function(){
+                    validateField(this)
+
+                })
+            })
+
+            function validateField(field){
+               
+                const errorElement = document.querySelector(`#${field.id}-error`)
+                if(field.validity.valid){
+                    field.classList.remove('invalid');
+                    field.classList.add('valid');
+                    errorElement.style.display = 'none';
+                    
+                }else{
+                    field.classList.add('invalid');
+                    field.classList.remove('valid');
+                    errorElement.style.display = 'block';
+                }
+            }
+            form.addEventListener('submit',function(e){
+                e.preventDefault();
+                let isValid=true;
+                inputs.forEach(input=>{
+                    const validity=validateField(input)
+                    if(!validity){
+                        isValid=false;
+                    }
+                })
+                if(isValid){
+                    alert('The Form has been submited!');
+                    inputs.forEach(input=>{
+                        input.classList.remove('valid')
+                    })
+                    
+                }else{
+                    alert('Please fill the form correctly');
+                }
+
+            })
+
+        })
+     </script>
+   
+</body>
+</html>
