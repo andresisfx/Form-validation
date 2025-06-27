@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
      <header>
@@ -11,7 +12,7 @@
         <p>please fill all fields to send your information succesfully</p>
      </header>
      <div class="container">
-        <form action="">
+        <form action="" id="form">
             <fieldset>
                 <legend style="background-color: rgb(27, 72, 219); color: white; border-radius: 5px; padding: 5px;">Your Data</legend>
                     <div class="form-control">
@@ -26,12 +27,15 @@
                     </div>
                     <div class="form-control">
                         <label for="">Password</label>
-                        <input type="password" name="password" id="password" required minlength="">
+                        <input type="password" name="password" id="password" required minlength="8">
                         <div class="error" id="password-error"></div>
                     </div>
                 <button>Send</button>
             </fieldset>
         </form>
+        <script src="main.js">
+           
+        </script>
      </div>
 </body>
 </html>
