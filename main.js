@@ -1,47 +1,70 @@
 
 
-document.addEventListener('DOMContentLoaded',(e)=>{
 
-    const myForm=document.getElementById('form');
-    const inputs=document.querySelectorAll('.form-control input');
- console.log(myForm,inputs)
+
+const myForm=document.getElementById('form');
+const inputs=document.querySelectorAll('.form-control input');
+    
+
+const validateField=(field, isInitialLoad=false)=>{
+   const errorElement=document.querySelector(`#${field.id}-error`);
+   const value = field.value.trim();
+   field.classList.remove('invalid','valid');
+   errorElement.style.display='none';
+   errorElement.textContent=''
+
+   if(isInitialLoad &&  value==='' ){
+    return
+   }
+
+   if(value===''){
+      if(field.hasAttribute('required')){
+        field.classList.add('invalid');
+        errorElement.style.display='block';
+        errorElement.textContent='this field is required'
+      }
+   }
+
+   if(!field.validity.valid){
+    field.classList.add('invalid');
+    errorElement.style.display='block';
+
+      if(field.validity.typeMismatch&&field.type==='email'){
+        errorElement.textContent='Please enter a valid email'; 
+      }else if(field.validity.tooShort){
+         errorElement.textContent=`A minimun of ${field.minLength} is required`; 
+
+      }else{
+        errorElement.textContent=field.validationMessage || 'invalid value'
+      }
+   }else{
+    field.classList.add('valid');
+   }
+}
+
+  const initialValidation= ()=>{
     inputs.forEach(input=>{
-      input.addEventListener('input',()=>{
+      validateField(input,true)
+    })
+
+    inputs.forEach(field=>{
+      field.addEventListener('input',function(){
         validateField(this)
       })
     })
-    const validateField= (field)=>{
-       const errorelement= document.getElementById(`${field.id}-error`)
-       if (field.validity.valid) {
-         field.classList.remove('invalid');
-         field.classList.add('valid');
-         errorelement.style.display='none'
-       }else{
-         field.classList.remove('valid');
-         field.classList.add('invalid');
-         errorelement.style.display='block'
-       }
-    }
-    myForm.addEventListener('submit',(e)=>{
-      e.preventDefault()
-      let validity=true
-       inputs.forEach(input=>{
-          const validField= validateField(input);
-          if(!validField){
-            validity=false;
-            return
-          }
-       })
+  }
 
-       if(validity){
-        alert('Information submited succesfully');
-        inputs.forEach(input=>{
-          input.classList.remove('valid');
-          input.value=''
-        })
-       }
-    })
+document.addEventListener('DOMContentLoaded',initialValidation)
 
 
 
-})
+
+
+
+
+
+ 
+
+
+
+
